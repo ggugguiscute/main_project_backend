@@ -5,10 +5,19 @@
     //2. SQL 쿼리 실행
     //3. 쿼리 결과 json 배열로 응답
 
+    include $_SERVER['DOCUMENT_ROOT'].'/main_backend/etc/error.php';
+
+    $limit = $_GET['qnt'];
+    if($limit === 'all'){
+        $query_qnt = '';
+    } else {
+        $query_qnt = "LIMIT $limit";
+    }
+
     //접속 정보 로드
     include_once $_SERVER['DOCUMENT_ROOT'].'/main_backend/connect/dbconn.php';
 
-    $sql = "SELECT * FROM spl_products ORDER BY pro_reg DESC LIMIT 6";
+    $sql = "SELECT * FROM spl_products ORDER BY pro_reg DESC $query_qnt";
     $result = mysqli_query($conn, $sql); //첫번째 파라미터 : 접속 정보, 두번째 파라미터 : 쿼리문
 
     $json_result = array();//빈 배열 초기화

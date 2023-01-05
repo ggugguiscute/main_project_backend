@@ -11,7 +11,7 @@ if($req_cart == "add_cart"){
     if(isset($_SESSION['cart'])){
         $addedItem = array_column($_SESSION['cart'], 'cart_name'); //주어진 배열(첫번째 파라미터)에서 특정 컬럼값(두번째 파라미터) 변환 => 참조 ; https://zetawiki.com/wiki/PHP_array_column()
 
-        if(in_array($_POST['cart_name'], $addedItem)){ //첫번째 파라미터 배열에 두번째 파라미터값이 있으면 true,   없으면 false
+        if(in_array($_POST['cart_name'], $addedItem)){ //첫번째 파라미터 배열에 두번째 파라미터값이 있으면 true, 없으면 false
             echo json_encode(array("msg" => "이미 추가된 상품입니다.")); 
         }else{
             $count = count($_SESSION['cart']);
@@ -44,7 +44,15 @@ if($req_cart == "add_cart"){
 }
 
 // 2) 카트 요청
-if($req_cart == "get_cart"){}
+if($req_cart == "get_cart"){
+if(isset($_SESSION['cart'])){
+    $cart_lists = $_SESSION['cart'];
+}else{
+    $cart_lists = '카트에 추가된 상품이 없습니다.';
+}
+
+    echo json_encode($cart_lists);
+};
 
 // 3) 카트 삭제
 if($req_cart == "del_cart"){}

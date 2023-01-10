@@ -11,7 +11,7 @@
     if($limit === 'all'){
         $query_qnt = '';
     } else {
-        $query_qnt = 'LIMIT $limit';
+        $query_qnt = "LIMIT $limit";
     }
 
     //접속 정보 로드

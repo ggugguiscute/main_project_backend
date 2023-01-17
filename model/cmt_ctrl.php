@@ -141,6 +141,7 @@ function post_cmt($conn){
 
     $cmt_idx = $_GET['cmt_idx'];
     $cmt_cont = $_PATCH['update_cont'];
+    $cmt_star = $_PATCH['cmt_star'];
     // php에서는 공식적으로 post와 get만 지원한다. 따라서 patch, delete, put등은 별도의 접근 처리를 해주어야 한다.
 
     if(!isset($_SESSION['useridx'])){
@@ -148,7 +149,9 @@ function post_cmt($conn){
         exit();
     }
 
-    $sql = "UPDATE spl_cmt SET cmt_cont = ? WHERE cmt_idx = ?";
+    // echo json_encode(array("cmt_idx" => $cmt_idx, "cmt_cont" => $cmt_cont, "cmt_star" => $cmt_star));
+
+    $sql = "UPDATE spl_cmt SET cmt_cont = ?, cmt_star = ? WHERE cmt_idx = ?";
 
     $stmt = $conn->stmt_init();
 
@@ -157,16 +160,17 @@ function post_cmt($conn){
         echo json_encode(array("msg" => "상품평 수정에 실패하였습니다."));
     }
 
-    $stmt -> bind_param("ss", $cmt_cont, $cmt_idx); //sql 순서 같게
+    $stmt -> bind_param("sss", $cmt_cont, $cmt_star, $cmt_idx); //sql 순서 같게
     $stmt -> execute();
 
-    if($stmt->affected_rows > 0){
-        http_response_code(200);
+    // if($stmt->affected_rows > 0){
+    //     http_response_code(200);
         echo json_encode(array("msg" => "상품평이 수정되었습니다.")); 
-    }else{
-        http_response_code(400);
-        echo json_encode(array("msg" => "상품평 수정에 실패하였습니다.")); 
-    }
+    // }else{
+    //     http_response_code(400);
+    //     echo json_encode(array("msg" => "상품평 수정에 실패하였습니다.")); 
+    // }
+
     // echo json_encode(array("cmt_idx" => $cmt_idx, "cmt_cont" => $cmt_cont));
 }
 

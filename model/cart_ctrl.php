@@ -58,7 +58,6 @@ if(isset($_SESSION['cart'])){
 if($req_cart == "del_cart"){
     $cart_idx = $_GET['cart_idx'];
 
-    // echo json_encode(array("msg" => $cart_idx));
 
     //foreach as 문 참고 : https://extbrain.tistory.com/24
     foreach($_SESSION['cart'] as $key => $value){
@@ -71,7 +70,5 @@ if($req_cart == "del_cart"){
         }
     }
 }
-
-// echo json_encode(array("msg" => "카트 컨트롤 페이지")); 
 
 ?>
